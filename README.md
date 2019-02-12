@@ -60,7 +60,6 @@ $ npm i @rxluz/js-enum --save
 ## See Also
 
 - [Project documentation](https://rxluz.github.io/js-enum/)
-- [Dev.to platform post about this project](https://dev.to/ricardo/i-wrote-an-npm-package-to-prevent-infinite-recursion-in-objects-5422)
 
 ## License
 
