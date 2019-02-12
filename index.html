@@ -68,7 +68,7 @@
 				<blockquote>
 					<p>An ENUM implementation in JS</p>
 				</blockquote>
-				<p><a href="https://travis-ci.org/rxluz/js-enum"><img src="https://travis-ci.org/rxluz/js-enum.svg?branch=master" alt="Build Status"></a>
+				<p><a href="https://travis-ci.com/rxluz/js-enum"><img src="https://travis-ci.com/rxluz/js-enum.svg?branch=master" alt="Build Status"></a>
 					<a href="https://codecov.io/gh/rxluz/js-enum"><img src="https://codecov.io/gh/rxluz/js-enum/branch/master/graph/badge.svg" alt="codecov"></a>
 					<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
 					<img src="https://img.shields.io/bundlephobia/min/@rxluz/js-enum.svg?style=flat" alt="">
@@ -89,10 +89,9 @@
 <span class="hljs-keyword">const</span> myDirection = direction.DOWN;</code></pre>
 				<h3 id="using-custom-values">Using custom values</h3>
 				<p>The default value to each element of your enum will be a sequential number (eg. UP: 0, DOWN: 1, LEFT: 2, RIGHT, 3), but you could change this putting a custom value to each element</p>
-				<pre><code class="language-js">
-const direction = jsENUM([&#39;UP&#39;, &#39;UP], &#39;DOWN&#39;, &#39;LEFT&#39;, &#39;RIGHT&#39;);
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> direction = jsENUM([<span class="hljs-string">'UP'</span>, <span class="hljs-string">'UP'</span>], <span class="hljs-string">'DOWN'</span>, <span class="hljs-string">'LEFT'</span>, <span class="hljs-string">'RIGHT'</span>);
 
-const myDirection = direction.DOWN;</code></pre>
+<span class="hljs-keyword">const</span> myDirection = direction.DOWN;</code></pre>
 				<p>In the example above the values will be (eg. UP: UP, DOWN: 1, LEFT: 2, RIGHT, 3)</p>
 				<h2 id="install">Install</h2>
 				<p>With <a href="https://npmjs.org/">npm</a> installed, run</p>
