@@ -2,7 +2,7 @@
 
 > An ENUM implementation in JS
 
-[![Build Status](https://travis-ci.org/rxluz/js-enum.svg?branch=master)](https://travis-ci.org/rxluz/js-enum)
+[![Build Status](https://travis-ci.com/rxluz/js-enum.svg?branch=master)](https://travis-ci.com/rxluz/js-enum)
 [![codecov](https://codecov.io/gh/rxluz/js-enum/branch/master/graph/badge.svg)](https://codecov.io/gh/rxluz/js-enum)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![](https://img.shields.io/bundlephobia/min/@rxluz/js-enum.svg?style=flat)
@@ -36,8 +36,7 @@ const myDirection = direction.DOWN;
 The default value to each element of your enum will be a sequential number (eg. UP: 0, DOWN: 1, LEFT: 2, RIGHT, 3), but you could change this putting a custom value to each element
 
 ```js
-
-const direction = jsENUM(['UP', 'UP], 'DOWN', 'LEFT', 'RIGHT');
+const direction = jsENUM(['UP', 'UP'], 'DOWN', 'LEFT', 'RIGHT');
 
 const myDirection = direction.DOWN;
 ```
