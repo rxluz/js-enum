@@ -1,0 +1,3 @@
+var typedoc = typedoc || {};
+            typedoc.search = typedoc.search || {};
+            typedoc.search.data = {"kinds":{"64":"Function"},"rows":[{"id":0,"kind":64,"name":"getKey","url":"globals.html#getkey","classes":"tsd-kind-function tsd-is-not-exported"},{"id":1,"kind":64,"name":"getValue","url":"globals.html#getvalue","classes":"tsd-kind-function tsd-is-not-exported"},{"id":2,"kind":64,"name":"isValidItems","url":"globals.html#isvaliditems","classes":"tsd-kind-function tsd-is-not-exported"},{"id":3,"kind":64,"name":"createEnum","url":"globals.html#createenum","classes":"tsd-kind-function tsd-is-not-exported"},{"id":4,"kind":64,"name":"jsENUM","url":"globals.html#jsenum","classes":"tsd-kind-function"}]};
