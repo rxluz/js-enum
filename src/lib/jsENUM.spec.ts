@@ -1,47 +1,62 @@
 // tslint:disable:no-expression-statement
 import test from 'ava';
-import preventObjectRecursion from './preventObjectRecursion';
+import jsENUM from './jsENUM';
 
-test('remove recursive calls from a simple object', t => {
-  const a = { hello: 'world', bb: {} };
-  const b = { hello: a };
-  // tslint:disable-next-line
-  a.bb = b;
+test('checking the values and keys from a default enum', t => {
+  const direction: any = jsENUM('UP', 'DOWN', 'LEFT', 'RIGHT');
 
-  t.is(
-    JSON.stringify(preventObjectRecursion(a)),
-    JSON.stringify({ hello: 'world', bb: { hello: {} } })
-  );
+  t.log(JSON.stringify(direction));
+
+  t.is(direction.UP, 0);
+  t.is(direction.DOWN, 1);
+  t.is(direction.LEFT, 2);
+  t.is(direction.RIGHT, 3);
 });
 
-test('remove recursive calls from an complex object', t => {
-  const valentina = { name: 'Valentina', otherSon: {} };
-  const invalidFamily = {
-    name: 'Manuel',
-    otherSon: {
-      name: 'Valdir',
-      otherSon: {
-        name: 'Ricardo',
-        son: valentina
-      },
-      son: valentina
-    },
-    son: valentina
-  };
-
-  // tslint:disable-next-line
-  invalidFamily.son.otherSon = valentina;
-
-  t.is(
-    JSON.stringify(preventObjectRecursion(invalidFamily)),
-    JSON.stringify({
-      name: 'Manuel',
-      otherSon: {
-        name: 'Valdir',
-        otherSon: { name: 'Ricardo', son: { name: 'Valentina', otherSon: {} } },
-        son: { name: 'Valentina', otherSon: {} }
-      },
-      son: { name: 'Valentina', otherSon: {} }
-    })
+test('checking the values and keys from a enum with custom values', t => {
+  const direction: any = jsENUM(
+    ['UP', 'UP'],
+    'DOWN',
+    ['LEFT', 'left'],
+    'RIGHT'
   );
+
+  t.log(JSON.stringify(direction));
+
+  t.is(direction.UP, 'UP');
+  t.is(direction.DOWN, 1);
+  t.is(direction.LEFT, 'left');
+  t.is(direction.RIGHT, 3);
+});
+
+test('invalid schema with numbers', t => {
+  const error = t.throws(() => {
+    jsENUM(1, 2, 3);
+  });
+
+  t.is(error.message, 'Invalid enum schema');
+});
+
+test('invalid schema with boolean', t => {
+  const error = t.throws(() => {
+    jsENUM(true, false, true);
+  });
+
+  t.is(error.message, 'Invalid enum schema');
+});
+
+test('invalid schema with objects', t => {
+  const error = t.throws(() => {
+    jsENUM({ hello: 'world' }, {}, { hey: 'me', test: 'this' });
+  });
+
+  t.is(error.message, 'Invalid enum schema');
+});
+
+test('send an empty enum', t => {
+  const direction: any = jsENUM();
+
+  t.log(JSON.stringify(direction));
+
+  t.is(JSON.stringify(direction), JSON.stringify({}));
 });

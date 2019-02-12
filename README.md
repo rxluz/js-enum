@@ -1,48 +1,55 @@
-# @rxluz/prevent-object-recursion
+# @rxluz/js-enum
 
-> ➰ Remove all recursive references from the object
+> An ENUM implementation in JS
 
-[![Build Status](https://travis-ci.org/rxluz/prevent-object-recursion.svg?branch=master)](https://travis-ci.org/rxluz/prevent-object-recursion)
-[![codecov](https://codecov.io/gh/rxluz/prevent-object-recursion/branch/master/graph/badge.svg)](https://codecov.io/gh/rxluz/prevent-object-recursion)
+[![Build Status](https://travis-ci.org/rxluz/js-enum.svg?branch=master)](https://travis-ci.org/rxluz/js-enum)
+[![codecov](https://codecov.io/gh/rxluz/js-enum/branch/master/graph/badge.svg)](https://codecov.io/gh/rxluz/js-enum)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![](https://img.shields.io/bundlephobia/min/@rxluz/prevent-object-recursion.svg?style=flat)
-![](https://img.shields.io/npm/v/@rxluz/prevent-object-recursion.svg?style=flat)
-![](https://img.shields.io/npm/l/@rxluz/prevent-object-recursion.svg?style=flat)
+![](https://img.shields.io/bundlephobia/min/@rxluz/js-enum.svg?style=flat)
+![](https://img.shields.io/npm/v/@rxluz/js-enum.svg?style=flat)
+![](https://img.shields.io/npm/l/@rxluz/js-enum.svg?style=flat)
 
 ## Usage
 
 ### Example (es module)
 
 ```js
-import preventObjectRecursion from '@rxluz/prevent-object-recursion';
+import jsENUM from '@rxluz/js-enum';
 
-const a = { hello: 'world' };
-const b = { hey: 'hey', hello: a };
-a.newProp = b;
+const direction = jsENUM('UP', 'DOWN', 'LEFT', 'RIGHT');
 
-console.log(preventObjectRecursion(a));
-// => { hello: 'world', newProp: { hey: 'hey' }}
+const myDirection = direction.DOWN;
 ```
 
 ### Example (commonjs)
 
 ```js
-var preventObjectRecursion = require('@rxluz/prevent-object-recursion').default;
+var jsENUM = require('@rxluz/js-enum').default;
 
-const a = { hello: 'world' };
-const b = { hey: 'hey', hello: a };
-a.newProp = b;
+const direction = jsENUM('UP', 'DOWN', 'LEFT', 'RIGHT');
 
-console.log(preventObjectRecursion(a));
-// => { hello: 'world', newProp: { hey: 'hey' }}
+const myDirection = direction.DOWN;
 ```
+
+### Using custom values
+
+The default value to each element of your enum will be a sequential number (eg. UP: 0, DOWN: 1, LEFT: 2, RIGHT, 3), but you could change this putting a custom value to each element
+
+```js
+
+const direction = jsENUM(['UP', 'UP], 'DOWN', 'LEFT', 'RIGHT');
+
+const myDirection = direction.DOWN;
+```
+
+In the example above the values will be (eg. UP: UP, DOWN: 1, LEFT: 2, RIGHT, 3)
 
 ## Install
 
 With [npm](https://npmjs.org/) installed, run
 
 ```
-$ npm i @rxluz/prevent-object-recursion --save
+$ npm i @rxluz/js-enum --save
 ```
 
 ## Acknowledgments
@@ -52,7 +59,7 @@ $ npm i @rxluz/prevent-object-recursion --save
 
 ## See Also
 
-- [Project documentation](https://rxluz.github.io/prevent-object-recursion/)
+- [Project documentation](https://rxluz.github.io/js-enum/)
 - [Dev.to platform post about this project](https://dev.to/ricardo/i-wrote-an-npm-package-to-prevent-infinite-recursion-in-objects-5422)
 
 ## License

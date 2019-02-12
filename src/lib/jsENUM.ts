@@ -1,68 +1,85 @@
 /**
- * Removes all recursive references in a object
+ * Get the key name that will be used to create the ENUM object, this could be the item case the item is a string or the first element of array case the item is a array
+ *
+ * @param item      The string or array that correspond to the current item
+ * @param index     The current index that will be used case the user didn't send a custom value
+ * @returns         Return true case the items are valid, or false case there are no items
+ */
+function getKey(item: string | ReadonlyArray<any>): any {
+  return typeof item === 'string' ? item : item[0];
+}
+
+/**
+ * Get the value that will be used to create the ENUM object, this value could be the index number or a custom value sent in item array
+ *
+ * @param item      The string or array that correspond to the current item
+ * @param index     The current index that will be used case the user didn't send a custom value
+ * @returns         Return true case the items are valid, or false case there are no items
+ */
+function getValue(item: string | ReadonlyArray<string>, index: any): string {
+  return typeof item === 'string' ? index : item[1];
+}
+
+/**
+ * Verify if the received items are valid to create an enum, emits an error case the items schema is invalid
+ *
+ * @param items     The items that will be addded in enum.
+ * @returns         Return true case the items are valid, or false case there are no items
+ */
+function isValidItems(items: ReadonlyArray<any>): boolean {
+  const isValidArray = (item: any) =>
+    Array.isArray(item) && item.length === 2 && typeof item[0] === 'string';
+
+  const isStringOrArrayDouble = () =>
+    items.every(item => typeof item === 'string' || isValidArray(item));
+
+  // tslint:disable-next-line
+  if (!isStringOrArrayDouble()) {
+    throw new Error('Invalid enum schema');
+  }
+
+  return items.length > 0;
+}
+
+/**
+ * Creates the enum itself
+ *
+ * @param items     The items that will be addded in enum.
+ * @returns         Returns an object with key and value.
+ */
+function createEnum(items: []): object {
+  return items.reduce(
+    (myEnum: object, item: string, index: number) => ({
+      ...myEnum,
+      [getKey(item)]: getValue(item, index)
+    }),
+    {}
+  );
+}
+
+/**
+ * An ENUM implementation in JS
  *
  * ### Example (es module)
  * ```js
- * import preventObjectRecursion from '@rxluz/prevent-object-recursion'
+ * import jsENUM from '@rxluz/js-enum';
  *
- * const a = { hello: 'world' }
- * const b = { hey: 'hey', hello: a }
- * a.newProp = b
- *
- * console.log(preventObjectRecursion(a))
- * // => { hello: 'world', newProp: { hey: 'hey' }}
+ * const direction = jsENUM('UP', 'DOWN', 'LEFT', 'RIGHT');
+ * const myDirection = direction.DOWN;
  * ```
  *
  * ### Example (commonjs)
  * ```js
- * const preventObjectRecursion = require('@rxluz/prevent-object-recursion').default;
+ * var jsENUM = require('@rxluz/js-enum').default;
  *
- * const a = { hello: 'world' }
- * const b = { hey: 'hey', hello: a }
- * a.newProp = b
- *
- * console.log(preventObjectRecursion(a))
- * // => { hello: 'world', newProp: { hey: 'hey' }}
+ * const direction = jsENUM('UP', 'DOWN', 'LEFT', 'RIGHT');
+ * const myDirection = direction.DOWN;
  * ```
  *
- * @param obj     The object with recursive references.
- * @returns       Returns a new object without the recursive references.
- * @anotherNote   Works in the browser as well as node.
+ * @param ...items  The items that will be addded in enum.
+ * @returns         Returns an object with key and value.
+ * @compability     Works in the browser as well as node.
  */
-
-// tslint:disable-next-line:export-just-namespace
-
-export default function preventObjectRecursion(root: any, list: any = []): any {
-  // keys with null data or with string/function/boolean data couldn't create recursive data, in this case we simply return this data
-  const rootIsNullOrNotAObject = !root || typeof root !== 'object';
-
-  // this var will store the object without recursive data
-
-  /* the list variable store the path from the root until this item, 
-     what we need to do is compare this path with the current item, 
-     if the item is the same of some item in the path, we don't add 
-     this item in rootClean in order to avoid recursion */
-
-  const hasRecursion =
-    list.length > 0 && list.some((item: object) => item === root);
-
-  /* we need add the current root in list array, 
-      this will allow compare this root with its children, 
-      this comparison will help us to find recursive data */
-  // tslint:disable-next-line
-  list.push(root);
-
-  const rootClean = () =>
-    !rootIsNullOrNotAObject && !hasRecursion
-      ? Object.keys(root).reduce(
-          (accumulator: object, key: string) => ({
-            ...accumulator,
-            // tslint:disable-next-line
-            [key]: preventObjectRecursion(root[key], [...list])
-          }),
-          {}
-        )
-      : {};
-
-  return rootIsNullOrNotAObject ? root : hasRecursion ? {} : rootClean();
+export default function jsENUM(...items: any): object {
+  return isValidItems(items) ? createEnum(items) : {};
 }
