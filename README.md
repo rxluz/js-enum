@@ -1,4 +1,4 @@
-# @rxluz/js-enum
+# @rxluz/js-enum [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=An%20ENUM%20implementation%20in%20JS&url=https://github.com/rxluz/js-enum)
 
 > An ENUM implementation in JS
 
